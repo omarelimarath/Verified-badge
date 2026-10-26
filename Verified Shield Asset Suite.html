@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Verified Shield & Symbol Asset Suite</title>
+  <style>
+    /* CSS Reset & System Tokens */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-black: #000000;
+      --bg-card: #09090b;
+      --bg-card-hover: #121215;
+      --border-color: #27272a;
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+      --accent-linkedin: #0A66C2;
+      --accent-gold: #D4AF37;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+    }
+
+    body {
+      background-color: var(--bg-black);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem;
+      overflow-x: hidden;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background-color: #18181b;
+      border: 1px solid var(--border-color);
+      padding: 0.35rem 0.85rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .badge-pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: #10b981;
+      box-shadow: 0 0 8px #10b981;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero Canvas */
+    .hero-canvas {
+      width: 100%;
+      max-width: 800px;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, rgba(0,0,0,1) 100%), var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2rem;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+
+    .hero-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+      font-size: clamp(2.5rem, 10vw, 4.5rem);
+      user-select: none;
+    }
+
+    .shield-svg {
+      width: 1em;
+      height: 1em;
+      display: inline-block;
+      vertical-align: middle;
+      color: #ffffff;
+      filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.25));
+      transition: transform 0.2s ease, filter 0.2s ease;
+    }
+
+    .shield-svg:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.4));
+    }
+
+    .x-symbol {
+      font-family: Arial, sans-serif;
+      font-weight: 900;
+      line-height: 1;
+      display: inline-block;
+      color: #ffffff;
+      text-shadow: 0 0 16px rgba(255, 255, 255, 0.25);
+    }
+
+    .hero-caption {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Section Container */
+    .section-title {
+      width: 100%;
+      max-width: 800px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Grid Layout for Variant Cards */
+    .variants-grid {
+      width: 100%;
+      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .variant-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .variant-card:hover {
+      border-color: #3f3f46;
+      background: var(--bg-card-hover);
+    }
+
+    .variant-card .card-display {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      font-size: 1.8rem;
+    }
+
+    .variant-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* Theme-specific styles */
+    .theme-white { color: #ffffff; }
+    .theme-linkedin { color: var(--accent-linkedin); }
+    .theme-gold { color: var(--accent-gold); }
+    .theme-stealth { color: #3f3f46; }
+
+    /* Asset Studio Block */
+    .studio-card {
+      width: 100%;
+      max-width: 800px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .studio-tabs {
+      display: flex;
+      background: #121215;
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.85rem 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+
+    .tab-btn.active {
+      color: #ffffff;
+      border-bottom-color: #ffffff;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .studio-body {
+      padding: 1.25rem;
+      position: relative;
+    }
+
+    .code-container {
+      position: relative;
+    }
+
+    pre {
+      background: #000000;
+      border: 1px solid #18181b;
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      font-size: 0.75rem;
+      color: #e4e4e7;
+      line-height: 1.6;
+      overflow-x: auto;
+      max-height: 280px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.6rem;
+      right: 0.6rem;
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 6px;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: background 0.2s ease, transform 0.1s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.95);
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #ffffff;
+      color: #000000;
+      padding: 0.6rem 1.2rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    footer {
+      margin-top: auto;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="badge-pill">
+      <span class="badge-pill-dot"></span>
+      Asset Suite & Master Component
+    </div>
+    <h1>Verified Shield & 𝕏 Studio</h1>
+    <p class="subtitle">Standalone vector icons & UI snippets</p>
+  </header>
+
+  <!-- Hero Component Display -->
+  <main class="hero-canvas">
+    <div class="hero-display">
+      <!-- Shield 1 -->
+      <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+      <!-- Shield 2 -->
+      <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+      <!-- Shield 3 -->
+      <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="M9 12l2 2 4-4"/>
+      </svg>
+      <!-- X Symbol -->
+      <span class="x-symbol">𝕏</span>
+    </div>
+    <div class="hero-caption">Master Vector Asset Component</div>
+  </main>
+
+  <!-- Variants Showcase Grid -->
+  <div class="section-title">Color Schemes</div>
+  <section class="variants-grid">
+    
+    <!-- White Minimal -->
+    <div class="variant-card">
+      <div class="card-display theme-white">
+        <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <span class="x-symbol">𝕏</span>
+      </div>
+      <span class="variant-label">Pure White</span>
+    </div>
+
+    <!-- LinkedIn Blue -->
+    <div class="variant-card">
+      <div class="card-display theme-linkedin">
+        <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <span class="x-symbol" style="color: var(--accent-linkedin);">𝕏</span>
+      </div>
+      <span class="variant-label">LinkedIn Blue</span>
+    </div>
+
+    <!-- Executive Gold -->
+    <div class="variant-card">
+      <div class="card-display theme-gold">
+        <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <span class="x-symbol" style="color: var(--accent-gold);">𝕏</span>
+      </div>
+      <span class="variant-label">Executive Gold</span>
+    </div>
+
+    <!-- Stealth Dark -->
+    <div class="variant-card">
+      <div class="card-display theme-stealth">
+        <svg class="shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+        </svg>
+        <span class="x-symbol" style="color: #3f3f46;">𝕏</span>
+      </div>
+      <span class="variant-label">Stealth Dark</span>
+    </div>
+
+  </section>
+
+  <!-- Production Export Studio -->
+  <div class="section-title">Production Export Studio</div>
+  <section class="studio-card">
+    
+    <div class="studio-tabs">
+      <button class="tab-btn active" onclick="openTab('tab-inline')">Inline SVG</button>
+      <button class="tab-btn" onclick="openTab('tab-raw')">Raw SVG File</button>
+      <button class="tab-btn" onclick="openTab('tab-snippet')">HTML/CSS Component</button>
+    </div>
+
+    <div class="studio-body">
+      
+      <!-- Tab 1: Inline SVG Code -->
+      <div id="tab-inline" class="tab-content active">
+        <div class="code-container">
+          <button class="copy-btn" onclick="copySnippet('code-inline-text')">Copy Code</button>
+          <pre id="code-inline-text">&lt;!-- Verified Shield Icon Asset --&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"&gt;
+  &lt;path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+  &lt;path d="M9 12l2 2 4-4"/&gt;
+&lt;/svg&gt;</pre>
+        </div>
+      </div>
+
+      <!-- Tab 2: Raw Standalone File Code -->
+      <div id="tab-raw" class="tab-content">
+        <div class="code-container">
+          <button class="copy-btn" onclick="copySnippet('code-raw-text')">Copy SVG File</button>
+          <pre id="code-raw-text">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"&gt;
+  &lt;path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+  &lt;path d="M9 12l2 2 4-4"/&gt;
+&lt;/svg&gt;</pre>
+        </div>
+      </div>
+
+      <!-- Tab 3: Embedded HTML/CSS Snippet -->
+      <div id="tab-snippet" class="tab-content">
+        <div class="code-container">
+          <button class="copy-btn" onclick="copySnippet('code-component-text')">Copy Snippet</button>
+          <pre id="code-component-text">&lt;!-- Embeddable Verified Badge Component --&gt;
+&lt;div style="display: flex; align-items: center; gap: 0.4em; font-size: 2rem; color: #ffffff;"&gt;
+  &lt;svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));"&gt;
+    &lt;path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+    &lt;path d="M9 12l2 2 4-4"/&gt;
+  &lt;/svg&gt;
+  &lt;svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));"&gt;
+    &lt;path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+    &lt;path d="M9 12l2 2 4-4"/&gt;
+  &lt;/svg&gt;
+  &lt;svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 12px rgba(255,255,255,0.25));"&gt;
+    &lt;path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/&gt;
+    &lt;path d="M9 12l2 2 4-4"/&gt;
+  &lt;/svg&gt;
+  &lt;span style="font-family: Arial, sans-serif; font-weight: 900; line-height: 1; text-shadow: 0 0 12px rgba(255,255,255,0.25);"&gt;𝕏&lt;/span&gt;
+&lt;/div&gt;</pre>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Toast Element -->
+  <div id="toast" class="toast">Copied to clipboard!</div>
+
+  <footer>
+    Asset Suite • Standalone Single-File Component
+  </footer>
+
+  <script>
+    // Tab Navigation Logic
+    function openTab(tabId) {
+      const contents = document.querySelectorAll('.tab-content');
+      const buttons = document.querySelectorAll('.tab-btn');
+
+      contents.forEach(content => content.classList.remove('active'));
+      buttons.forEach(btn => btn.classList.remove('active'));
+
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // Clipboard Copy Helper Function
+    function copySnippet(elementId) {
+      const textToCopy = document.getElementById(elementId).innerText;
+
+      // Safe copy fallback using textarea element
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = textToCopy;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      showToast();
+    }
+
+    // Toast Feedback Notification
+    function showToast() {
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2000);
+    }
+  </script>
+</body>
+</html>
